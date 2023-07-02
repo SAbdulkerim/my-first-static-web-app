@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customers Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    table { border-collapse: collapse; }
+    th, td { padding: 8px; border: 1px solid #ccc; }
+    th { background-color: lightblue; color: white; }
+  </style>
+</head>
+<body>
+  <h1>Customers</h1>
+
+  <table>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+    </tr>
+    <?php
+      // Database connection settings
+      $serverName = "anassserver.database.windows.net";
+      $databaseName = "AnassDatabase";
+      $username = "mylaptop";
+      $password = "Sakarim1969";
+
+      // Create a new PDO instance
+      $dsn = "sqlsrv:server=$serverName;database=$databaseName";
+      $conn = new PDO($dsn, $username, $password);
+
+      // Fetch the query results
+      $query = "SELECT Id, Name FROM Customers";
+      $stmt = $conn->query($query);
+      $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+      foreach ($result as $row) {
+        echo "<tr>";
+        echo "<td>" . $row->Id . "</td>";
+        echo "<td>" . $row->Name . "</td>";
+        echo "</tr>";
+      }
+    ?>
+  </table>
+</body>
+</html>
